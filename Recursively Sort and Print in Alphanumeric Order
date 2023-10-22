@@ -1,0 +1,41 @@
+/* 
+   Adds the given course as a node to the proper alphanumeric location in the search tree
+*/
+void CourseSearchTree::addNode(Node* node, Course course) {
+    if (node->course.courseNumber.compare(course.courseNumber) > 0) {
+        // If the left node is null, create a new node for the given course
+        if (node->left == nullptr) {
+            node->left = new Node(course);
+        }
+
+        else {
+            // Recursively searches through the left node for the proper place to add the node
+            this->addNode(node->left, course);
+        }
+    }
+
+    else {
+        // If the right node is null, create a new node for the given course
+        if (node->right == nullptr) {
+            node->right = new Node(course);
+        }
+
+        else {
+            // Recursively searches through the right node for the proper place to add the node
+            this->addNode(node->right, course);
+        }
+    }
+}
+
+
+/* 
+   Recursively prints the given search tree in alphanumeric order
+*/
+void CourseSearchTree::printSchedule(Node* node) {
+    if (node != nullptr) {
+        printSchedule(node->left);
+        cout << node->course.courseNumber << ", " << node->course.courseName << endl;
+        printSchedule(node->right);
+    }
+    return;
+}
